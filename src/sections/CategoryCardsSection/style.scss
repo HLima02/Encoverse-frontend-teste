@@ -1,0 +1,29 @@
+.category_cards {
+  padding: 39px 0;
+
+  .category_cards_container {
+    max-width: 1160px;
+    width: 100%;
+  }
+
+  // ========== RESPONSIVE ==========
+  @media (max-width: 768px) {
+    padding: 24px 0;
+
+    .category_cards_container {
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 16px;
+      padding: 0 16px;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      scrollbar-width: none;
+    }
+  }
+}
