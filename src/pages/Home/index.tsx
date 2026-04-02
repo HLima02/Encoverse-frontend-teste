@@ -1,8 +1,11 @@
 import React from 'react'
 import './style.scss'
+import Header from '../../components/Header'
 
 export default function Home() {
   return (
-    <div>Página inicial</div>
+    <div>
+        <Header />
+    </div>
   )
 }
