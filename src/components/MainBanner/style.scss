@@ -1,0 +1,90 @@
+.main_banner {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 78px 0 55px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 8.5), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .main_banner_container {
+    position: relative;
+    z-index: 20;
+
+    .main_banner_content {
+      color: var(--color-white);
+      max-width: 822px;
+
+      h1 {
+        font-size: 48px;
+        line-height: 50px;
+        font-weight: 600;
+        padding-bottom: 28px;
+      }
+
+      h2 {
+        font-size: 32px;
+        font-weight: 300;
+        line-height: 42px;
+
+        span {
+          color: var(--color-yellow-300);
+          font-weight: 600;
+        }
+      }
+
+      button {
+        margin-top: 40px;
+        font-size: 16px;
+        line-height: 24px;
+        background-color: var(--color-yellow-300);
+        padding: 7px 49px;
+        border-radius: 10px;
+        color: var(--color-blue-900);
+        font-weight: 700;
+        border: none;
+      }
+    }
+  }
+
+  // ========== RESPONSIVE ==========
+  @media (max-width: 768px) {
+    padding: 40px 0 32px;
+
+    .main_banner_container {
+      .main_banner_content {
+        max-width: 100%;
+        padding: 0 16px;
+
+        h1 {
+          font-size: 28px;
+          line-height: 32px;
+          padding-bottom: 16px;
+        }
+
+        h2 {
+          font-size: 20px;
+          line-height: 28px;
+        }
+
+        button {
+          margin-top: 24px;
+          font-size: 14px;
+          padding: 7px 32px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
