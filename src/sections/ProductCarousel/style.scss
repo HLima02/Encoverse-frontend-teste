@@ -27,6 +27,18 @@
       }
     }
 
+    .product_carousel_view_all {
+      font-size: 23px;
+      color: #3F3F40;
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-weight: 400;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     .product_carousel_tabs {
       display: flex;
       width: 100%;

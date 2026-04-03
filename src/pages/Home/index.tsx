@@ -8,6 +8,7 @@ import Brands from '../../sections/Brands'
 import ProductCarousel from '../../sections/ProductCarousel'
 import Newsletter from '../../sections/Newsletter'
 import Footer from '../../sections/Footer'
+import ProductCarouselSimple from '../../sections/ProductCarouselSimple'
 
 export default function Home() {
   return (
@@ -17,7 +18,10 @@ export default function Home() {
       <CategoryCardsSection />
       <ProductCarousel />
       <Partners />
+      <ProductCarouselSimple />
+      <Partners />
       <Brands />
+      <ProductCarouselSimple />
       <Newsletter />
       <Footer />
     </main>
