@@ -74,6 +74,26 @@ header {
             height: 24px;
           }
         }
+
+        .cart_link {
+          position: relative;
+
+          .cart_badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background-color: var(--color-blue-200);
+            color: var(--color-white);
+            font-size: 10px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
       }
     }
   }

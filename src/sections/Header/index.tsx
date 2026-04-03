@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './style.scss'
 import { Link } from 'react-router-dom'
+import { useCartStore } from '../../store/useCartStore'
 
 import security_buy from '../../assets/ShieldCheck.png'
 import truck from '../../assets/Truck.png'
@@ -15,6 +16,8 @@ import { navLinks } from '../../data/nav-links'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const cartItems = useCartStore((state) => state.items)
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0)
 
   return (
     <header>
@@ -63,8 +66,9 @@ export default function Header() {
             <Link to="/perfil">
               <img src={user} alt='Ícone de pessoa para usuarios' />
             </Link >
-            <Link to="/carrinho">
+            <Link to="/carrinho" className='cart_link'>
               <img src={cart} alt='Ícone de carrinho de shopping para carrinho' />
+              {cartCount > 0 && <span className='cart_badge'>{cartCount}</span>}
             </Link >
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useProdutoStore } from './store/useProdutoStore'
 import { useUserStore } from './store/useUserStore'
+import { useCartStore } from './store/useCartStore'
 import { supabase } from './lib/supabase'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
@@ -10,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function App() {
   const { loading, error, fetchProdutos } = useProdutoStore()
   const { setUser, logout: storeLogout } = useUserStore()
+  const { fetchCart, clearCart } = useCartStore()
 
   useEffect(() => {
     fetchProdutos()
@@ -24,13 +26,15 @@ export default function App() {
             nome: session.user.user_metadata?.nome ?? '',
             email: session.user.email ?? '',
           })
+          fetchCart(session.user.id)
         } else {
           storeLogout()
+          clearCart()
         }
       }
     )
     return () => subscription.unsubscribe()
-  }, [setUser, storeLogout])
+  }, [setUser, storeLogout, fetchCart, clearCart])
 
   if (loading) return <div>Carregando produtos...</div>
   if (error) return <div>{error}</div>

@@ -50,6 +50,8 @@ export interface CartState {
   removeItem: (name: string) => void
   updateQuantity: (name: string, quantity: number) => void
   clearCart: () => void
+  fetchCart: (userId: string) => Promise<void>
+  setItems: (items: CartItem[]) => void
 }
 
 export interface ProdutoState {
