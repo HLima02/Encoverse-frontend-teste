@@ -37,6 +37,21 @@ export interface ProdutosResponse {
   products: Produto[]
 }
 
+export interface CartItem {
+  image: string
+  name: string
+  price: number
+  quantity: number
+}
+
+export interface CartState {
+  items: CartItem[]
+  addItem: (item: CartItem) => void
+  removeItem: (name: string) => void
+  updateQuantity: (name: string, quantity: number) => void
+  clearCart: () => void
+}
+
 export interface ProdutoState {
   produtos: Produto[]
   loading: boolean

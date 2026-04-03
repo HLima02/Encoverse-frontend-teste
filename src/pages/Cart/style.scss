@@ -15,6 +15,30 @@
     }
   }
 
+  .cart_empty {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 11px rgba(0, 0, 0, 0.08);
+    padding: 48px;
+    text-align: center;
+
+    p {
+      font-size: 16px;
+      color: var(--color-gray-600);
+      margin-bottom: 16px;
+    }
+
+    .cart_continue {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-blue-200);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   .cart_content {
     display: flex;
     gap: 24px;
