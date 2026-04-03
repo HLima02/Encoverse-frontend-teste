@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './style.scss'
 import { useProdutoStore } from '../../store/useProdutoStore'
 import ProductCard from '../../components/ProductCard'
+import ProductModal from '../../components/ProductModal'
+import type { Produto } from '../../types'
 
 const tabs = ['CELULAR', 'ACESSÓRIOS', 'TABLETS', 'NOTEBOOKS', 'TVS', 'VER TODOS']
 
 export default function ProductCarousel() {
   const { produtos } = useProdutoStore()
   const [activeTab, setActiveTab] = useState(0)
+  const [selectedProduct, setSelectedProduct] = useState<Produto | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
 
   const scroll = (direction: 'left' | 'right') => {
@@ -55,6 +58,7 @@ export default function ProductCarousel() {
                 name={produto.descriptionShort}
                 oldPrice={produto.price * 1.05}
                 currentPrice={produto.price}
+                onBuy={() => setSelectedProduct(produto)}
               />
             ))}
           </div>
@@ -66,6 +70,15 @@ export default function ProductCarousel() {
           </button>
         </div>
       </div>
+
+      {selectedProduct && (
+        <ProductModal
+          image={selectedProduct.photo}
+          name={selectedProduct.descriptionShort}
+          price={selectedProduct.price}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </section>
   )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatPrice } from '../../lib/formatPrice'
 import './style.scss'
 
 interface ProductCardProps {
@@ -6,12 +7,13 @@ interface ProductCardProps {
   name: string
   oldPrice: number
   currentPrice: number
+  onBuy?: () => void
 }
 
-export default function ProductCard({ image, name, oldPrice, currentPrice }: ProductCardProps) {
-  const installment = (currentPrice / 2).toFixed(2).replace('.', ',')
-  const formattedOld = oldPrice.toFixed(2).replace('.', ',')
-  const formattedCurrent = currentPrice.toFixed(2).replace('.', ',')
+export default function ProductCard({ image, name, oldPrice, currentPrice, onBuy }: ProductCardProps) {
+  const installment = formatPrice(currentPrice / 2)
+  const formattedOld = formatPrice(oldPrice)
+  const formattedCurrent = formatPrice(currentPrice)
 
   return (
     <div className='product_card'>
@@ -24,7 +26,7 @@ export default function ProductCard({ image, name, oldPrice, currentPrice }: Pro
         <span className='product_card_price'>R$ {formattedCurrent}</span>
         <span className='product_card_installment'>ou 2x de R$ {installment} sem juros</span>
         <span className='product_card_shipping'>Frete grátis</span>
-        <button className='product_card_buy'>COMPRAR</button>
+        <button className='product_card_buy' onClick={onBuy}>COMPRAR</button>
       </div>
     </div>
   )
