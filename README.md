@@ -118,4 +118,4 @@ npm run build
 npm run preview
 ```
 
-O projeto estara disponivel em `[https://encoverse-frontend-teste.netlify.app/](https://encoverse-frontend-teste.netlify.app/)`.
+O projeto estara disponivel em [https://encoverse-frontend-teste.netlify.app/](https://encoverse-frontend-teste.netlify.app/).
