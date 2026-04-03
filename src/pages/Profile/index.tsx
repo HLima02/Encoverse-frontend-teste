@@ -112,9 +112,11 @@ export default function Profile() {
   return (
     <div className='profile_page'>
       <div className='profile_header'>
-        <Link to="/">
-          <img src={econverseLogo} alt="Econverse" className='profile_logo' />
-        </Link>
+        <div className='w_1280'>
+          <Link to="/">
+            <img src={econverseLogo} alt="Econverse" className='profile_logo' />
+          </Link>
+        </div>
       </div>
 
       <div className='w_1280 profile_container'>
