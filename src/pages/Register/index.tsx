@@ -27,7 +27,7 @@ export default function Register() {
   return (
     <div className='auth_page'>
       <div className='auth_card'>
-        <img src={econverseLogo} alt="Econverse" className='auth_logo' />
+        <Link to="/"><img src={econverseLogo} alt="Econverse" className='auth_logo' /></Link>
         <h2>Criar sua conta</h2>
 
         <form onSubmit={handleSubmit}>

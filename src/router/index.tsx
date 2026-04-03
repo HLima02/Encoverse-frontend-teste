@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import Favorites from "../pages/Favorites";
 import Cart from "../pages/Cart";
+import RouteGuard from "../components/RouteGuard";
 
 export const router = createBrowserRouter([
     {
@@ -21,14 +22,14 @@ export const router = createBrowserRouter([
     },
     {
         path: '/perfil',
-        element: <Profile/>
+        element: <RouteGuard><Profile/></RouteGuard>
     },
     {
         path: '/favoritos',
-        element: <Favorites/>
+        element: <RouteGuard><Favorites/></RouteGuard>
     },
     {
         path: '/carrinho',
-        element: <Cart/>
+        element: <RouteGuard><Cart/></RouteGuard>
     }
 ])

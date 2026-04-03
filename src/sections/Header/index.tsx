@@ -47,9 +47,9 @@ export default function Header() {
             <span />
             <span />
           </button>
-          <div className='logo'>
+          <Link to="/" className='logo'>
             <img src={econveseLogo} alt="Econverse Logo. Lê-se: Econverse" />
-          </div>
+          </Link>
           <div className='input_search'>
             <input type='text' placeholder='O que você está buscando?' />
           </div>
