@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { formatPrice } from '../../lib/formatPrice'
 import './style.scss'
 import Header from '../../sections/Header'
 
@@ -28,8 +29,6 @@ const mockFavorites = [
 ]
 
 export default function Favorites() {
-  const formatPrice = (value: number) => value.toFixed(2).replace('.', ',')
-
   return (
     <div className='favorites_page'>
       <Header />
