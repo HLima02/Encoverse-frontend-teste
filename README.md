@@ -118,4 +118,4 @@ npm run build
 npm run preview
 ```
 
-O projeto estara disponivel em `http://localhost:5173`.
+O projeto estara disponivel em `https://encoverse-frontend-teste.netlify.app/`.
