@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './style.scss'
 import CategoryCards from '../../components/CategoryCards'
 import { category_cards } from '../../data/category-cards'

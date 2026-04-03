@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { useCartStore } from '../../store/useCartStore'
 import { formatPrice } from '../../lib/formatPrice'

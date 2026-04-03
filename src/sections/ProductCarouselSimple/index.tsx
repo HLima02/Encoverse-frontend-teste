@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import '../ProductCarousel/style.scss'
 import { useProdutoStore } from '../../store/useProdutoStore'
 import ProductCard from '../../components/ProductCard'

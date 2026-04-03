@@ -1,4 +1,3 @@
-import React from 'react'
 import './style.scss'
 import Header from '../../sections/Header'
 import MainBanner from '../../sections/MainBanner'

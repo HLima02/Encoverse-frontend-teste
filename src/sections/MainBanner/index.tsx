@@ -1,4 +1,3 @@
-import React from 'react'
 import './style.scss'
 import mainBannerBg from '../../assets/main_banner_bg.png'
 

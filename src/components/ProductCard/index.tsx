@@ -1,4 +1,3 @@
-import React from 'react'
 import { formatPrice } from '../../lib/formatPrice'
 import './style.scss'
 
