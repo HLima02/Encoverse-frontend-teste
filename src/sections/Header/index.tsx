@@ -57,13 +57,13 @@ export default function Header() {
             <Link to="/">
               <img src={box} alt='Ícone' />
             </Link >
-            <Link to="/">
+            <Link to="/favoritos">
               <img src={favorites} alt='Ícone de coração para favoritos' />
             </Link >
             <Link to="/perfil">
               <img src={user} alt='Ícone de pessoa para usuarios' />
             </Link >
-            <Link to="/">
+            <Link to="/carrinho">
               <img src={cart} alt='Ícone de carrinho de shopping para carrinho' />
             </Link >
           </div>
