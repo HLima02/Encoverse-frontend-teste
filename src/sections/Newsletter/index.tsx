@@ -6,9 +6,8 @@ export default function Newsletter() {
     <section className='flex_center newssletter'>
       <div className='w_1280 flexrow_center_between newssletter_container'>
         <div className='newssletter_left_content'>
-          <h3>Inscreva-se na nossa newsletter
-            <p>Assine a nossa newsletter e receba as novidades e conteúdos exclusivos da Econverse.</p>
-          </h3>
+          <h3>Inscreva-se na nossa newsletter</h3>
+          <p>Assine a nossa newsletter e receba as novidades e conteúdos exclusivos da Econverse.</p>
         </div>
         <div className='newssletter_right_content'>
           <form >

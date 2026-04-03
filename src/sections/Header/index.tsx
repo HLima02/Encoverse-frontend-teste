@@ -60,7 +60,7 @@ export default function Header() {
             <Link to="/">
               <img src={favorites} alt='Ícone de coração para favoritos' />
             </Link >
-            <Link to="/">
+            <Link to="/perfil">
               <img src={user} alt='Ícone de pessoa para usuarios' />
             </Link >
             <Link to="/">
