@@ -1,4 +1,4 @@
-import tecnology from '../assets/devices.png'
+import tecnology from '../assets/devices_black.png'
 import market from '../assets/supermercados.png'
 import drinks from '../assets/whiskey.png'
 import tools from '../assets/ferramentas.png'
