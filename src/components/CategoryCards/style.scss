@@ -14,9 +14,11 @@
     padding: 34px;
     border-radius: 10px;
     box-shadow: 0 4px 11px rgba(0, 0, 0, 0.13);
+    transition: background-color 0.3s;
 
     img {
       max-width: 62px;
+      transition: filter 0.3s;
     }
   }
 
@@ -25,6 +27,22 @@
     color: var(--color-gray-600);
     font-weight: 500;
     line-height: 21px;
+    transition: color 0.3s;
+  }
+
+  &:hover,
+  &.active {
+    .category_card_img {
+      background-color: var(--color-white);
+    }
+
+    img {
+      filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(4000%) hue-rotate(250deg) brightness(85%);
+    }
+
+    p {
+      color: #3c28bc;
+    }
   }
 
   // ========== RESPONSIVE ==========
