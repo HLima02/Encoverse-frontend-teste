@@ -4,10 +4,24 @@ export interface User {
   email: string
 }
 
+export interface Profile {
+  id: string
+  nome: string
+  email: string
+  telefone: string
+  rua: string
+  bairro: string
+  cidade: string
+  estado: string
+  cep: string
+}
+
 export interface UserState {
   user: User | null
   isAuthenticated: boolean
+  loading: boolean
   setUser: (user: User) => void
+  setLoading: (loading: boolean) => void
   logout: () => void
 }
 

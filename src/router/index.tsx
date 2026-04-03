@@ -5,7 +5,7 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import Favorites from "../pages/Favorites";
 import Cart from "../pages/Cart";
-import RouteGuard from "../components/RouteGuard";
+import RouteGuard from "./RouteGuard";
 
 export const router = createBrowserRouter([
     {

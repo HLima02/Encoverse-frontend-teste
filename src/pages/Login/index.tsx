@@ -1,19 +1,34 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { supabase } from '../../lib/supabase'
 import './style.scss'
 import econverseLogo from '../../assets/econverse-logo.png'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email || !password) {
       toast.warn('Preencha todos os campos.')
       return
     }
+
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    setLoading(false)
+
+    if (error) {
+      toast.error('E-mail ou senha incorretos.')
+      return
+    }
+
+    toast.success('Login realizado com sucesso!')
+    navigate('/')
   }
 
   return (
@@ -44,7 +59,9 @@ export default function Login() {
             />
           </div>
           <a href="#" className='auth_forgot'>Esqueceu sua senha?</a>
-          <button type="submit" className='auth_submit'>ENTRAR</button>
+          <button type="submit" className='auth_submit' disabled={loading}>
+            {loading ? 'ENTRANDO...' : 'ENTRAR'}
+          </button>
         </form>
 
         <p className='auth_switch'>

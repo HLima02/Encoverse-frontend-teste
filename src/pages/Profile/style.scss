@@ -61,6 +61,26 @@
       margin-bottom: 24px;
     }
 
+    .profile_logout {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--color-error);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--color-error);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background-color 0.2s, color 0.2s;
+
+      &:hover {
+        background-color: var(--color-error);
+        color: var(--color-white);
+      }
+    }
+
     .profile_back {
       font-size: 14px;
       font-weight: 500;
@@ -86,13 +106,79 @@
     box-shadow: 0 4px 11px rgba(0, 0, 0, 0.08);
     padding: 24px;
 
-    h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--color-purple);
+    .profile_section_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--color-border);
+
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-purple);
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+    }
+
+    .profile_edit_btn {
+      padding: 6px 16px;
+      border: 1px solid var(--color-blue-200);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--color-blue-200);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+
+      &:hover {
+        background-color: var(--color-blue-200);
+        color: var(--color-white);
+      }
+    }
+
+    .profile_edit_actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .profile_save_btn {
+      padding: 6px 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--color-blue-200);
+      color: var(--color-white);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--color-blue-300);
+      }
+    }
+
+    .profile_cancel_btn {
+      padding: 6px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--color-gray-600);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--color-gray-90);
+      }
     }
   }
 
@@ -117,6 +203,27 @@
     span {
       font-size: 14px;
       color: var(--color-gray-600);
+    }
+
+    input {
+      width: 100%;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: "Poppins", sans-serif;
+      color: var(--color-gray-600);
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: var(--color-blue-200);
+      }
+
+      &::placeholder {
+        color: var(--color-gray-100);
+      }
     }
   }
 

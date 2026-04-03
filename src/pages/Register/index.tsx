@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { supabase } from '../../lib/supabase'
+import { createProfile } from '../../lib/profileService'
 import './style.scss'
 import econverseLogo from '../../assets/econverse-logo.png'
 
@@ -10,8 +12,10 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name || !email || !password || !confirmPassword) {
       toast.warn('Preencha todos os campos.')
@@ -22,6 +26,39 @@ export default function Register() {
       return
     }
     setError('')
+    setLoading(true)
+
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { nome: name },
+      },
+    })
+
+    if (signUpError) {
+      setLoading(false)
+      toast.error(signUpError.message)
+      return
+    }
+
+    if (data.user) {
+      await createProfile({
+        id: data.user.id,
+        nome: name,
+        email,
+        telefone: '',
+        rua: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+        cep: '',
+      })
+    }
+
+    setLoading(false)
+    toast.success('Conta criada com sucesso!')
+    navigate('/')
   }
 
   return (
@@ -72,7 +109,9 @@ export default function Register() {
             />
           </div>
           {error && <span className='auth_error'>{error}</span>}
-          <button type="submit" className='auth_submit'>CADASTRAR</button>
+          <button type="submit" className='auth_submit' disabled={loading}>
+            {loading ? 'CADASTRANDO...' : 'CADASTRAR'}
+          </button>
         </form>
 
         <p className='auth_switch'>

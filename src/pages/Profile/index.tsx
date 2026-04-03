@@ -1,27 +1,114 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { supabase } from '../../lib/supabase'
+import { getProfile, updateProfile } from '../../lib/profileService'
+import { useUserStore } from '../../store/useUserStore'
+import type { Profile } from '../../types'
 import './style.scss'
 import econverseLogo from '../../assets/econverse-logo.png'
 
-const mockUser = {
-  nome: 'João Silva',
-  email: 'joao.silva@email.com',
-  telefone: '(11) 99999-9999',
-  endereco: {
-    rua: 'Rua das Flores, 123',
-    bairro: 'Centro',
-    cidade: 'São Paulo',
-    estado: 'SP',
-    cep: '01000-000',
-  },
-  pedidos: [
-    { id: '#1042', data: '28/03/2026', status: 'Entregue', valor: 'R$ 289,90' },
-    { id: '#1038', data: '15/03/2026', status: 'Em trânsito', valor: 'R$ 1.499,00' },
-    { id: '#1021', data: '02/03/2026', status: 'Entregue', valor: 'R$ 59,90' },
-  ],
-}
 
 export default function Profile() {
+  const { user } = useUserStore()
+  const navigate = useNavigate()
+
+  const [profile, setProfile] = useState<Profile | null>(null)
+  const [editingSection, setEditingSection] = useState<string | null>(null)
+  const [form, setForm] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    rua: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+    cep: '',
+  })
+
+  useEffect(() => {
+    if (!user) return
+    getProfile(user.id).then((data) => {
+      if (data) {
+        setProfile(data)
+        setForm({
+          nome: data.nome || '',
+          email: data.email || '',
+          telefone: data.telefone || '',
+          rua: data.rua || '',
+          bairro: data.bairro || '',
+          cidade: data.cidade || '',
+          estado: data.estado || '',
+          cep: data.cep || '',
+        })
+      }
+    })
+  }, [user])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    toast.success('Logout realizado.')
+    navigate('/login')
+  }
+
+  const handleEdit = (section: string) => {
+    setEditingSection(section)
+  }
+
+  const handleCancel = () => {
+    if (profile) {
+      setForm({
+        nome: profile.nome || '',
+        email: profile.email || '',
+        telefone: profile.telefone || '',
+        rua: profile.rua || '',
+        bairro: profile.bairro || '',
+        cidade: profile.cidade || '',
+        estado: profile.estado || '',
+        cep: profile.cep || '',
+      })
+    }
+    setEditingSection(null)
+  }
+
+  const handleSave = async () => {
+    if (!user) return
+
+    const fields = editingSection === 'pessoais'
+      ? { nome: form.nome, telefone: form.telefone }
+      : { rua: form.rua, bairro: form.bairro, cidade: form.cidade, estado: form.estado, cep: form.cep }
+
+    const success = await updateProfile(user.id, fields)
+
+    if (success) {
+      setProfile((prev) => {
+        if (prev) return { ...prev, ...fields }
+        return {
+          id: user.id,
+          nome: form.nome,
+          email: form.email,
+          telefone: form.telefone,
+          rua: form.rua,
+          bairro: form.bairro,
+          cidade: form.cidade,
+          estado: form.estado,
+          cep: form.cep,
+        }
+      })
+      toast.success('Dados atualizados!')
+      setEditingSection(null)
+    } else {
+      toast.error('Erro ao salvar.')
+    }
+  }
+
+  const handleChange = (field: string, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }))
+  }
+
+  const displayName = profile?.nome || user?.nome || ''
+  const displayEmail = profile?.email || user?.email || ''
+
   return (
     <div className='profile_page'>
       <div className='profile_header'>
@@ -33,76 +120,107 @@ export default function Profile() {
       <div className='w_1280 profile_container'>
         <div className='profile_sidebar'>
           <div className='profile_avatar'>
-            <span>{mockUser.nome.charAt(0)}</span>
+            <span>{displayName.charAt(0) || '?'}</span>
           </div>
-          <h2>{mockUser.nome}</h2>
-          <p>{mockUser.email}</p>
+          <h2>{displayName}</h2>
+          <p>{displayEmail}</p>
+          <button className='profile_logout' onClick={handleLogout}>Sair da conta</button>
           <Link to="/" className='profile_back'>Voltar à loja</Link>
         </div>
 
         <div className='profile_content'>
           <section className='profile_section'>
-            <h3>Dados pessoais</h3>
+            <div className='profile_section_header'>
+              <h3>Dados pessoais</h3>
+              {editingSection !== 'pessoais' ? (
+                <button className='profile_edit_btn' onClick={() => handleEdit('pessoais')}>Editar</button>
+              ) : (
+                <div className='profile_edit_actions'>
+                  <button className='profile_save_btn' onClick={handleSave}>Salvar</button>
+                  <button className='profile_cancel_btn' onClick={handleCancel}>Cancelar</button>
+                </div>
+              )}
+            </div>
             <div className='profile_grid'>
               <div className='profile_field'>
                 <label>Nome</label>
-                <span>{mockUser.nome}</span>
+                {editingSection === 'pessoais' ? (
+                  <input value={form.nome} onChange={(e) => handleChange('nome', e.target.value)} />
+                ) : (
+                  <span>{displayName || '-'}</span>
+                )}
               </div>
               <div className='profile_field'>
                 <label>E-mail</label>
-                <span>{mockUser.email}</span>
+                <span>{displayEmail || '-'}</span>
               </div>
               <div className='profile_field'>
                 <label>Telefone</label>
-                <span>{mockUser.telefone}</span>
+                {editingSection === 'pessoais' ? (
+                  <input value={form.telefone} onChange={(e) => handleChange('telefone', e.target.value)} placeholder='(00) 00000-0000' />
+                ) : (
+                  <span>{profile?.telefone || '-'}</span>
+                )}
               </div>
-
             </div>
           </section>
 
           <section className='profile_section'>
-            <h3>Endereço</h3>
+            <div className='profile_section_header'>
+              <h3>Endereço</h3>
+              {editingSection !== 'endereco' ? (
+                <button className='profile_edit_btn' onClick={() => handleEdit('endereco')}>Editar</button>
+              ) : (
+                <div className='profile_edit_actions'>
+                  <button className='profile_save_btn' onClick={handleSave}>Salvar</button>
+                  <button className='profile_cancel_btn' onClick={handleCancel}>Cancelar</button>
+                </div>
+              )}
+            </div>
             <div className='profile_grid'>
               <div className='profile_field'>
                 <label>Rua</label>
-                <span>{mockUser.endereco.rua}</span>
+                {editingSection === 'endereco' ? (
+                  <input value={form.rua} onChange={(e) => handleChange('rua', e.target.value)} placeholder='Rua, número' />
+                ) : (
+                  <span>{profile?.rua || '-'}</span>
+                )}
               </div>
               <div className='profile_field'>
                 <label>Bairro</label>
-                <span>{mockUser.endereco.bairro}</span>
+                {editingSection === 'endereco' ? (
+                  <input value={form.bairro} onChange={(e) => handleChange('bairro', e.target.value)} placeholder='Bairro' />
+                ) : (
+                  <span>{profile?.bairro || '-'}</span>
+                )}
               </div>
               <div className='profile_field'>
-                <label>Cidade / Estado</label>
-                <span>{mockUser.endereco.cidade} - {mockUser.endereco.estado}</span>
+                <label>Cidade</label>
+                {editingSection === 'endereco' ? (
+                  <input value={form.cidade} onChange={(e) => handleChange('cidade', e.target.value)} placeholder='Cidade' />
+                ) : (
+                  <span>{profile?.cidade || '-'}</span>
+                )}
+              </div>
+              <div className='profile_field'>
+                <label>Estado</label>
+                {editingSection === 'endereco' ? (
+                  <input value={form.estado} onChange={(e) => handleChange('estado', e.target.value)} placeholder='UF' />
+                ) : (
+                  <span>{profile?.estado || '-'}</span>
+                )}
               </div>
               <div className='profile_field'>
                 <label>CEP</label>
-                <span>{mockUser.endereco.cep}</span>
+                {editingSection === 'endereco' ? (
+                  <input value={form.cep} onChange={(e) => handleChange('cep', e.target.value)} placeholder='00000-000' />
+                ) : (
+                  <span>{profile?.cep || '-'}</span>
+                )}
               </div>
             </div>
           </section>
 
-          <section className='profile_section'>
-            <h3>Últimos pedidos</h3>
-            <div className='profile_orders'>
-              <div className='profile_orders_header'>
-                <span>Pedido</span>
-                <span>Data</span>
-                <span>Status</span>
-                <span>Valor</span>
-              </div>
-              {mockUser.pedidos.map((pedido) => (
-                <div className='profile_order_row' key={pedido.id}>
-                  <span>{pedido.id}</span>
-                  <span>{pedido.data}</span>
-                  <span className={`order_status ${pedido.status === 'Entregue' ? 'delivered' : 'transit'}`}>
-                    {pedido.status}
-                  </span>
-                  <span>{pedido.valor}</span>
-                </div>
-              ))}
-            </div>
-          </section>
         </div>
       </div>
     </div>
