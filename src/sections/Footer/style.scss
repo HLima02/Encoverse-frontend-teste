@@ -1,0 +1,158 @@
+.footer {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+
+  .footer_aux {
+    width: 100%;
+    background-color: var(--color-gray-90);
+  }
+
+  .footer_container {
+    padding: 40px 0;
+    
+  }
+
+  .footer_top {
+    display: flex;
+    gap: 60px;
+  }
+
+  .footer_brand {
+    max-width: 354px;
+    margin-right: 90px;
+
+    .footer_logo {
+      width: 140px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--color-gray-600);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+  }
+
+  .footer_socials {
+    display: flex;
+    gap: 12px;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--color-gray-90);
+      color: var(--color-purple);
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--color-gray-100);
+      }
+
+      svg {
+        color: var(--color-gray-600);
+      }
+    }
+  }
+
+  .footer_links {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+
+    border-left: 1px solid rgba($color: #282828, $alpha: 0.18);
+    padding-left: 90px;
+  }
+
+  .footer_column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: 4px;
+    }
+
+    a {
+      font-size: 14px;
+      color: var(--color-gray-600);
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--color-purple);
+      }
+    }
+  }
+
+  .footer_bottom {
+    padding: 20px 0;
+    text-align: center;
+    background-color: var(--color-white);
+
+    p {
+      font-size: 13px;
+      color: var(--color-gray-100);
+    }
+  }
+}
+
+// Tablet
+@media (max-width: 1024px) {
+  .footer {
+    .footer_container {
+      padding: 40px 20px;
+    }
+
+    .footer_top {
+      gap: 40px;
+    }
+
+    .footer_links {
+      gap: 32px;
+    }
+  }
+}
+
+// Mobile
+@media (max-width: 640px) {
+  .footer {
+    .footer_top {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+
+    .footer_brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 0;
+    }
+
+    .footer_socials {
+      justify-content: center;
+    }
+
+    .footer_links {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .footer_column {
+      align-items: center;
+    }
+  }
+}
