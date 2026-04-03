@@ -37,6 +37,12 @@ export default function Login() {
         <Link to="/"><img src={econverseLogo} alt="Econverse" className='auth_logo' /></Link>
         <h2>Entrar na sua conta</h2>
 
+        <div className='auth_demo'>
+          <p>Acesso para visitantes:</p>
+          <span>E-mail: admin@admin.com</span>
+          <span>Senha: admin@123</span>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className='auth_field'>
             <label htmlFor='email'>E-mail</label>
